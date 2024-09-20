@@ -12,6 +12,15 @@ export class BooksControllers{
     };
 
     getBooks(req: Request, res: Response): Response{
+        const search = req.query.search as string;
+
+        if( search ){
+            const books = booksDatabase.filter(book => book.name.toLowerCase().includes(search.toLowerCase()));
+            return res.status(200).json(books);
+          
+        }
+
+
         return res.status(200).json(booksDatabase);
     };
 
